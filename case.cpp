@@ -1,16 +1,52 @@
 #include <iostream>
+
 using namespace std;
-int main(){
-   int num=5;
-   switch(num+2) {
-      case 1: 
-        cout<<"Case1: Value is: "<<num<<endl;
-      case 2: 
-        cout<<"Case2: Value is: "<<num<<endl;
-      case 3: 
-        cout<<"Case3: Value is: "<<num<<endl;
-      default: 
-        cout<<"Default: Value is: "<<num<<endl;
-   }
+
+class Line {
+
+   public:
+      int getLength( void );
+      Line( int len );             // simple constructor
+      Line( const Line &obj);  // copy constructor
+      ~Line();                     // destructor
+
+   private:
+      int *ptr;
+};
+
+// Member functions definitions including constructor
+Line::Line(int len) {
+   cout << "Normal constructor allocating ptr" << endl;
+   
+   // allocate memory for the pointer;
+   ptr = new int;
+   *ptr = len;
+}
+
+Line::Line(const Line &obj) {
+   cout << "Copy constructor allocating ptr." << endl;
+   ptr = new int;
+   *ptr = *obj.ptr; // copy the value
+}
+
+Line::~Line(void) {
+   cout << "Freeing memory!" << endl;
+   delete ptr;
+}
+
+int Line::getLength( void ) {
+   return *ptr;
+}
+
+void display(Line obj) {
+   cout << "Length of line : " << obj.getLength() <<endl;
+}
+
+// Main function for the program
+int main() {
+   Line line(10);
+
+   display(line);
+
    return 0;
 }
